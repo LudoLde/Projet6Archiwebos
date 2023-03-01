@@ -9,15 +9,17 @@
       <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet" />
       <meta name="description" content="" />
       <link rel="stylesheet" href="./assets/style.css" />
+      <script src="https://kit.fontawesome.com/e8b029d396.js" crossorigin="anonymous"></script>
    </head>
    <body>
+      <div class="black-band"></div>
       <header>
          <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
          <nav>
             <ul>
-               <li>projets</li>
+               <li><a href="index.html">projets</a></li>
                <li>contact</li>
-               <li>login</li>
+               <li><a href="login.html">login</a></li>
                <li><img src="./assets/icons/instagram.png" alt="Instagram" /></li>
             </ul>
          </nav>
@@ -26,7 +28,9 @@
          <section id="introduction">
             <figure>
                <img src="./assets/images/sophie-bluel.png" alt="" />
+               <a href="#" class="modif-image-profil"></a>
             </figure>
+
             <article>
                <h2>Designer d'espace</h2>
                <p>
@@ -42,11 +46,28 @@
          </section>
          <section id="portfolio">
             <h2>Mes Projets</h2>
+            <a href="#btn-modale" class="modale-modif"></a>
+            <div id="btn-modale" class="modale">
+               <div class="modale-content"></div>
+            </div>
+            <div id="second-modal" class="modale-content modal-display-none">
+               <a href="#" class="modale-close">&times;</a>
+               <h2>Ajout photo</h2>
+               <form>
+                  <input type="file" id="photo-projet" name="photo-projet" accept="image/png, image/jpeg" />
+                  <input type="text" />
+                  <select id="category" name="category">
+                     <option value="-1"></option>
+                  </select>
+               </form>
+               <button>Valider</button>
+            </div>
+
             <div id="bloc-btn">
-               <button id="btn-filtres btn-selected" onclick="selectFilter(0)">Tous</button>
-               <button id="btn-filtres" onclick="selectFilter(1)">Objets</button>
-               <button id="btn-filtres" onclick="selectFilter(2)">Appartements</button>
-               <button id="btn-filtres" onclick="selectFilter(3)">Hôtels et restaurants</button>
+               <button id="btn-filtre-tous" class="basics-style-btn active-btn" onclick="recupByCategory(this, -1)">Tous</button>
+               <button id="btn-filtre-objets" class="basics-style-btn" onclick="recupByCategory(this, 1)">Objets</button>
+               <button id="btn-filtre-appartements" class="basics-style-btn" onclick="recupByCategory(this, 2)">Appartements</button>
+               <button id="btn-filtre-h&r" class="basics-style-btn" onclick="recupByCategory(this, 3)">Hôtels et restaurants</button>
             </div>
             <div class="gallery">
                <figure>

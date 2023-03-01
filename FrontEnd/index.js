@@ -1,26 +1,130 @@
-fetch("http://localhost:5678/api/works", {
-   method: "GET",
-   headers: {
-      Accept: "application/json",
-   },
+function recupByCategory(btnSelect, categoryId) {
+   fetch("http://localhost:5678/api/works")
+      .then(function (response) {
+         return response.json();
+      })
+      .then(function (data) {
+         selectedBtn(btnSelect);
+         for (let i = 0; i < data.length; i++) {
+            let element = data[i];
+            const figure = document.querySelectorAll(".gallery figure");
+            if (element.categoryId !== categoryId && categoryId !== -1) {
+               figure[i].style.display = "none";
+            } else {
+               figure[i].style.display = "block";
+            }
+         }
+      });
+}
 
-   body: JSON.stringify(),
-})
-   .then((response) => response.json())
-   .then((result) => console.log(result));
+function selectedBtn(btnSelected) {
+   let current = document.getElementsByClassName("active-btn");
+   current[0].classList.remove("active-btn");
+   btnSelected.classList.add("active-btn");
+}
 
-const filtre1 = document.querySelector("#bloc-btn :nth-child(1)");
-const filtre2 = document.querySelector("#bloc-btn :nth-child(2)");
-const filtre3 = document.querySelector("#bloc-btn :nth-child(3)");
-const filtre4 = document.querySelector("#bloc-btn :nth-child(4)");
-let count = 0;
+const token = window.localStorage.getItem("token");
+if (token) {
+   activeUser();
+}
 
-function selectFilter(numFilter) {
-   let childNum = count + 1;
+const secondModal = document.getElementById("second-modal");
 
-   document.querySelector("#bloc-btn :nth-child(" + childNum + ")").classList.remove("btn-selected");
-   count = numFilter;
+function activeUser() {
+   loginToLogout();
+   blackBanner();
+   modal();
+   hiddenFilter();
+   modifImageProfil();
 
-   childNum = count + 1;
-   document.querySelector("#bloc-btn :nth-child(" + childNum + ")").classList.add("btn-selected");
+   function blackBanner() {
+      const bandeNoireContainer = document.createElement("div");
+      const bandeNoireHeader = document.querySelector(".black-band");
+      bandeNoireHeader.classList.add("black-band-design");
+      bandeNoireHeader.innerHTML =
+         "<span class='fa'>&#xf044</span>" +
+         "&nbsp;" +
+         "&nbsp;" +
+         "<p>Mode édition</p>" +
+         "&nbsp;" +
+         "&nbsp;" +
+         "<button>publier les changements</button>";
+   }
+
+   function loginToLogout() {
+      const headerLi = document.querySelectorAll("header ul li a");
+      for (element of headerLi) {
+         if (element.innerHTML === "login") {
+            element.innerHTML = "logout";
+         }
+
+         if (element.innerHTML === "logout") {
+            element.addEventListener("click", function () {
+               window.localStorage.removeItem("token");
+            });
+         }
+      }
+   }
+
+   function modal() {
+      const modale = document.querySelector(".modale-modif");
+      modale.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
+      const modaleContainer = document.querySelector(".modale-content");
+      modaleContainer.innerHTML =
+         "<h2>Galerie photo</h2>" +
+         '<a href="#" class="modale-close">&times;</a>' +
+         "<button class='add-image-modal'>Ajouter une photo</button>" +
+         "<p class='delete-galerie'>Supprimer la galerie</p>";
+
+      fetch("http://localhost:5678/api/works")
+         .then(function (response) {
+            return response.json();
+         })
+         .then(function (data) {
+            const galleryModal = document.createElement("div");
+            galleryModal.classList.add("gallery-modal");
+            modaleContainer.appendChild(galleryModal);
+
+            for (let i = 0; i < data.length; i++) {
+               const element = data[i];
+               galleryModal.innerHTML +=
+                  "<figure><span class='fa icon-modal'>&#xf290</span>" +
+                  '<img class="image-modal" src=' +
+                  element.imageUrl +
+                  " alt=" +
+                  element.title +
+                  '/> <p class="para-modal">éditer</p></figure>';
+            }
+
+            const btnAddImage = document.querySelector(".add-image-modal");
+            btnAddImage.addEventListener("click", function () {
+               modaleContainer.style.display = "none";
+               secondModal.classList.remove("modal-display-none");
+
+               fetch("http://localhost:5678/api/categories")
+                  .then(function (response) {
+                     return response.json();
+                  })
+                  .then(function (data) {
+                     const selectCategory = document.getElementById("category");
+                     for (let i = 0; i < data.length; i++) {
+                        const element = data[i];
+                        selectCategory.options.add(new Option(element.name, element.id));
+                     }
+                  });
+            });
+         });
+   }
+
+   function hiddenFilter() {
+      const blocBtn = document.getElementById("bloc-btn");
+      blocBtn.style.display = "none";
+      const h2Projects = document.querySelector("#portfolio h2");
+      h2Projects.style.marginBottom = "50px";
+   }
+
+   function modifImageProfil() {
+      const modifImageProfil = document.querySelector(".modif-image-profil");
+      modifImageProfil.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
+   }
 }
