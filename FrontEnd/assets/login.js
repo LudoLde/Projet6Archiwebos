@@ -24,6 +24,7 @@ async function clickLogin(e) {
    if (response.status == 200) {
       console.log(result.token);
       console.log(response);
+      window.localStorage.setItem("token", result.token);
       window.location.href = "index.html";
    }
    if (response.status == 401 || response.status == 404) {

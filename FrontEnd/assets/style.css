@@ -174,8 +174,13 @@ nav li {
    padding: 0 10px;
    font-size: 1.2em;
 }
+nav li a {
+   text-decoration: none;
+   color: black;
+}
 
-li:hover {
+li:hover,
+nav li a:hover {
    color: #b1663c;
 }
 #introduction {
@@ -190,6 +195,13 @@ li:hover {
    margin: auto;
    width: 80%;
 }
+.modif-image-profil {
+   font-family: "work Sans";
+   display: flex;
+   text-decoration: none;
+   color: black;
+   margin: 10px 0px 0px 54px;
+}
 
 #introduction article {
    flex: 1;
@@ -200,6 +212,9 @@ li:hover {
 
 #introduction p {
    margin-bottom: 0.5em;
+}
+#portfolio {
+   position: relative;
 }
 #portfolio h2 {
    text-align: center;
@@ -273,17 +288,164 @@ footer nav ul {
 #bloc-btn button {
    border: 1px solid #1d6154;
    border-radius: 60px;
-   color: #1d6154;
    font-family: "Syne";
    font-weight: 700;
    height: 37px;
    width: auto;
-   background: #fdfbf0;
    padding: 0px 15px 0px 15px;
 }
-.btn-selected {
+.basics-style-btn {
+   color: #1d6154;
+   background: #fdfbf0;
+}
+.active-btn {
    background: #1d6154;
    color: #fdfbf0;
+}
+
+/*** PAGE EDITION ***/
+
+.black-band-design {
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 50px;
+   background-color: black;
+   color: white;
+   margin: 0px 0px 25px 0px;
+}
+.black-band-design p {
+   font-family: "Work Sans";
+   font-size: 14px;
+}
+
+.black-band-design button {
+   border-radius: 60px;
+   height: 35px;
+   width: 216px;
+   font-family: "Work Sans";
+}
+
+/*** MODALE ***/
+
+.modale-modif {
+   text-decoration: none;
+   display: inline-flex;
+   color: black;
+   font-family: "Work Sans";
+   font-size: 14px;
+   padding-left: 12px;
+   position: absolute;
+   right: 31%;
+   top: 0.4%;
+}
+.modale {
+   visibility: hidden;
+   opacity: 0;
+   position: fixed;
+   top: 0;
+   right: 0;
+   bottom: 0;
+   left: 0;
+   background: rgba(77, 77, 77, 0.6);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   transition: 1.4s;
+}
+.modale:target {
+   visibility: visible;
+   opacity: 1;
+}
+
+.modale-content {
+   background: white;
+   position: relative;
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   width: 52%;
+   padding: 33px 10px 45px 10px;
+   border-radius: 10px;
+}
+.modale-content h2 {
+   margin: 30px;
+   color: black;
+   font-family: "Work Sans";
+}
+.modale-close {
+   text-decoration: none;
+   position: absolute;
+   top: 24px;
+   right: 38px;
+   font-size: 23px;
+   color: black;
+}
+
+.gallery-modal {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 10px;
+   border-bottom: 1px solid #b3b3b3;
+   margin: 32px 76px;
+   padding-bottom: 50px;
+}
+.gallery-modal figure {
+   display: flex;
+   flex-direction: column;
+   position: relative;
+}
+
+.icon-modal {
+   background: black;
+   width: 17px;
+   height: 18px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 3px 3px 3px 3px;
+}
+.gallery-modal .fa {
+   position: absolute;
+   color: white;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   right: 6px;
+   top: 4px;
+   font-size: xx-small;
+}
+
+.add-image-modal {
+   margin: 10px 0px 10px 0px;
+   display: flex;
+   order: 3;
+   background: #1d6154;
+   color: white;
+   border-radius: 60px;
+   width: 230px;
+   height: 35px;
+   justify-content: center;
+   align-items: center;
+   font-family: "Work Sans";
+}
+.delete-galerie {
+   display: flex;
+   order: 4;
+   color: #d65353;
+}
+.image-modal {
+   width: 75px;
+   height: 100px;
+}
+.gallery-modal p {
+   margin-top: 4px;
+}
+
+.modal-display-none {
+   display: none;
 }
 /*****   PAGE DE CONNEXION  *****/
 
