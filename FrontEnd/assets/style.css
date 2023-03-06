@@ -206,6 +206,12 @@ nav li a:hover {
 #introduction article {
    flex: 1;
 }
+.modif-para {
+   font-family: "work Sans";
+   text-decoration: none;
+   color: black;
+   display: flex;
+}
 #introduction h2 {
    margin-bottom: 1em;
 }
@@ -446,6 +452,93 @@ footer nav ul {
 
 .modal-display-none {
    display: none;
+}
+
+#second-modal form {
+   display: flex;
+   flex-direction: column;
+   width: 420px;
+   border-bottom: 1px solid #b3b3b3;
+}
+#second-modal .fa-arrow-left {
+   position: absolute;
+   left: 30px;
+   font-size: 1.25em;
+}
+#label-photo-projet {
+   overflow: hidden;
+   background: #e8f1f7;
+   height: 200px;
+   border-radius: 3px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   flex-direction: column;
+   padding: 10px 0px 0px 0px;
+}
+
+#img-uploaded {
+   width: 65%;
+   height: auto;
+}
+#img-uploaded img {
+   width: 93%;
+   height: 81%;
+}
+
+#label-photo-projet .fa-image {
+   width: 73px;
+   height: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: #b9c5cc;
+   font-size: 4.5em;
+}
+
+#photo-projet {
+   width: 173px;
+   height: 36px;
+   background: #cbd6dc;
+   border-radius: 50px;
+   color: transparent;
+   display: flex;
+   margin: 27px 0px 11px 0px;
+}
+#photo-projet::before {
+   content: "+ Ajouter photo";
+   color: #306685;
+   padding: 9px 33px;
+   font-size: 14px;
+   font-family: "Work Sans";
+   cursor: pointer;
+}
+#photo-projet::-webkit-file-upload-button {
+   visibility: hidden;
+}
+
+#title {
+   border: none;
+   box-shadow: 0px 4px 14px rgb(0 0 0 / 9%);
+   height: 37px;
+}
+#category {
+   border: none;
+   box-shadow: 0px 4px 14px rgb(0 0 0 / 9%);
+   height: 37px;
+   margin-bottom: 53px;
+}
+#second-modal form label {
+   margin: 18px 0px 8px 0px;
+}
+#second-modal button {
+   margin: 32px 0px 20px 0px;
+   background: #a7a7a7;
+   color: white;
+   border-radius: 60px;
+   width: 216px;
+   height: 35px;
+   border: none;
 }
 /*****   PAGE DE CONNEXION  *****/
 
