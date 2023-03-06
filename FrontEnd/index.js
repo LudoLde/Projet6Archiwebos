@@ -36,6 +36,8 @@ function activeUser() {
    modal();
    hiddenFilter();
    modifImageProfil();
+   arrowBackModal();
+   modifArticle();
 
    function blackBanner() {
       const bandeNoireContainer = document.createElement("div");
@@ -70,11 +72,6 @@ function activeUser() {
       const modale = document.querySelector(".modale-modif");
       modale.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
       const modaleContainer = document.querySelector(".modale-content");
-      modaleContainer.innerHTML =
-         "<h2>Galerie photo</h2>" +
-         '<a href="#" class="modale-close">&times;</a>' +
-         "<button class='add-image-modal'>Ajouter une photo</button>" +
-         "<p class='delete-galerie'>Supprimer la galerie</p>";
 
       fetch("http://localhost:5678/api/works")
          .then(function (response) {
@@ -127,4 +124,52 @@ function activeUser() {
       const modifImageProfil = document.querySelector(".modif-image-profil");
       modifImageProfil.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
    }
+
+   function modifArticle() {
+      const modifArticleSection = document.querySelector(".modif-para");
+      modifArticleSection.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
+   }
+
+   function arrowBackModal() {
+      const btnBackArrow = document.querySelector(".fa-arrow-left");
+      const modaleContainer = document.querySelector(".modale-content");
+      btnBackArrow.addEventListener("click", function () {
+         modaleContainer.style.display = "flex";
+         secondModal.classList.add("modal-display-none");
+      });
+   }
 }
+
+function formulaire() {
+   validationForm();
+   valiationFormOK();
+
+   function validationForm() {
+      const imageUploaded = document.getElementById("img-uploaded");
+      const imageSelected = document.getElementById("photo-projet");
+      const iconForm = document.getElementsByClassName("fa-image");
+      const paraForm = document.getElementsByClassName("para-form");
+      imageSelected.addEventListener("change", getImage, false);
+
+      function getImage() {
+         console.log("images", this.files[0]);
+         const imageToProcess = this.files[0];
+
+         let newImage = new Image(imageToProcess.width, imageToProcess.height);
+         newImage.src = URL.createObjectURL(imageToProcess);
+         imageUploaded.appendChild(newImage);
+      }
+   }
+
+   function valiationFormOK() {
+      const btnValider = document.getElementById("send-new-projet");
+      const titleNewForm = document.getElementById("title");
+      console.log(btnValider);
+
+      titleNewForm.addEventListener("input", function () {
+         btnValider.style.background = "#1d6154";
+         btnValider.style.cursor = "pointer";
+      });
+   }
+}
+formulaire();

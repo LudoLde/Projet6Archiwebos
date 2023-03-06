@@ -32,6 +32,7 @@
             </figure>
 
             <article>
+               <a href="#" class="modif-para"></a>
                <h2>Designer d'espace</h2>
                <p>
                   Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.
@@ -48,19 +49,32 @@
             <h2>Mes Projets</h2>
             <a href="#btn-modale" class="modale-modif"></a>
             <div id="btn-modale" class="modale">
-               <div class="modale-content"></div>
-            </div>
-            <div id="second-modal" class="modale-content modal-display-none">
-               <a href="#" class="modale-close">&times;</a>
-               <h2>Ajout photo</h2>
-               <form>
-                  <input type="file" id="photo-projet" name="photo-projet" accept="image/png, image/jpeg" />
-                  <input type="text" />
-                  <select id="category" name="category">
-                     <option value="-1"></option>
-                  </select>
-               </form>
-               <button>Valider</button>
+               <div class="modale-content">
+                  <h2>Galerie photo</h2>
+                  <a href="#" class="modale-close">&times;</a>
+                  <button class="add-image-modal">Ajouter une photo</button>
+                  <p class="delete-galerie">Supprimer la galerie</p>
+               </div>
+               <div id="second-modal" class="modale-content modal-display-none">
+                  <a href="#" class="modale-close">&times;</a>
+                  <i class="fa fa-light fa-arrow-left"></i>
+                  <h2>Ajout photo</h2>
+                  <form id="my-form">
+                     <label for="photo-projet" id="label-photo-projet">
+                        <i class="fa fa-thin fa-image fa-lg"></i>
+                        <input type="file" id="photo-projet" class="donnees-form" name="photo-projet" accept=".png, .jpg" />
+                        <div id="img-uploaded"></div>
+                        <p class="para-form">jpg, png : 4mo max</p></label
+                     >
+                     <label for="title">Titre</label>
+                     <input type="text" id="title" class="donnees-form" name="title" />
+                     <label for="category">Catégorie</label>
+                     <select id="category" class="donnees-form" name="category">
+                        <option value="-1"></option>
+                     </select>
+                  </form>
+                  <button id="send-new-projet">Valider</button>
+               </div>
             </div>
 
             <div id="bloc-btn">
