@@ -140,36 +140,68 @@ function activeUser() {
    }
 }
 
-function formulaire() {
-   validationForm();
-   valiationFormOK();
+const btnValider = document.getElementById("send-new-projet");
+const titleNewForm = document.getElementById("title");
+const categorieForm = document.getElementById("category");
+const imageSelected = document.getElementById("photo-projet");
 
-   function validationForm() {
-      const imageUploaded = document.getElementById("img-uploaded");
-      const imageSelected = document.getElementById("photo-projet");
-      const iconForm = document.getElementsByClassName("fa-image");
-      const paraForm = document.getElementsByClassName("para-form");
-      imageSelected.addEventListener("change", getImage, false);
+validationForm();
 
-      function getImage() {
-         console.log("images", this.files[0]);
-         const imageToProcess = this.files[0];
+btnValider.addEventListener("click", sendNewProject);
 
-         let newImage = new Image(imageToProcess.width, imageToProcess.height);
-         newImage.src = URL.createObjectURL(imageToProcess);
-         imageUploaded.appendChild(newImage);
-      }
-   }
+function validationForm() {
+   const imageUploaded = document.getElementById("img-uploaded");
 
-   function valiationFormOK() {
-      const btnValider = document.getElementById("send-new-projet");
-      const titleNewForm = document.getElementById("title");
-      console.log(btnValider);
+   imageSelected.addEventListener("change", getImage, false);
 
-      titleNewForm.addEventListener("input", function () {
-         btnValider.style.background = "#1d6154";
-         btnValider.style.cursor = "pointer";
-      });
+   function getImage() {
+      console.log("images", this.files[0]);
+      const imageToProcess = this.files[0];
+
+      let newImage = new Image(imageToProcess.width, imageToProcess.height);
+      newImage.src = URL.createObjectURL(imageToProcess);
+      newImage.setAttribute("id", "imgNewProject");
+      imageUploaded.appendChild(newImage);
    }
 }
-formulaire();
+
+function styleChangeBtnValider() {
+   if (isFormValid()) {
+      btnValider.style.background = "#1d6154";
+      btnValider.style.cursor = "pointer";
+   } else {
+      btnValider.style.background = "#a7a7a7";
+      btnValider.style.removeProperty("cursor");
+   }
+}
+
+function isFormValid() {
+   let isValid = true;
+
+   if (titleNewForm.value == "" || categorieForm.value == -1) {
+      isValid = false;
+   }
+
+   return isValid;
+}
+
+console.log(imageForm.value);
+function sendNewProject() {
+   const imageForm = document.getElementById("imgNewProject");
+
+   fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      body: {
+         image: "@" + imageSelected.files[0].name + ";type=" + imageSelected.files[0].type,
+         title: titleNewForm.value,
+         category: parseInt(categorieForm.value),
+      },
+
+      headers: {
+         Accept: "application/json",
+         Authorization: "Bearer " + token,
+      },
+   })
+      .then((response) => response.json())
+      .then((json) => console.log(json));
+}
