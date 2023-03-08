@@ -12,6 +12,8 @@
       <script src="https://kit.fontawesome.com/e8b029d396.js" crossorigin="anonymous"></script>
    </head>
    <body>
+      <!--   HEADER   -->
+
       <div class="black-band"></div>
       <header>
          <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
@@ -25,6 +27,7 @@
          </nav>
       </header>
       <main>
+         <!-- SECTION INTRODUCTION  -->
          <section id="introduction">
             <figure>
                <img src="./assets/images/sophie-bluel.png" alt="" />
@@ -45,9 +48,14 @@
                <p>En cas de besoin, une équipe pluridisciplinaire constituée de : architecte DPLG, décorateur(trice)</p>
             </article>
          </section>
+
+         <!-- SECTION PORTFOLIO PROJETS  -->
+
          <section id="portfolio">
             <h2>Mes Projets</h2>
             <a href="#btn-modale" class="modale-modif"></a>
+
+            <!-- PREMIERE MODALE  -->
             <div id="btn-modale" class="modale">
                <div class="modale-content">
                   <h2>Galerie photo</h2>
@@ -55,10 +63,13 @@
                   <button class="add-image-modal">Ajouter une photo</button>
                   <p class="delete-galerie">Supprimer la galerie</p>
                </div>
+
+               <!-- SECONDE MODALE  -->
                <div id="second-modal" class="modale-content modal-display-none">
                   <a href="#" class="modale-close">&times;</a>
                   <i class="fa fa-light fa-arrow-left"></i>
                   <h2>Ajout photo</h2>
+
                   <form id="my-form">
                      <label for="photo-projet" id="label-photo-projet">
                         <i class="fa fa-thin fa-image fa-lg"></i>
@@ -73,16 +84,19 @@
                         <option value="-1"></option>
                      </select>
                   </form>
+
                   <button id="send-new-projet" onclick="sendNewProject()">Valider</button>
                </div>
             </div>
 
+            <!-- BOUTONS FILTRES  -->
             <div id="bloc-btn">
                <button id="btn-filtre-tous" class="basics-style-btn active-btn" onclick="recupByCategory(this, -1)">Tous</button>
                <button id="btn-filtre-objets" class="basics-style-btn" onclick="recupByCategory(this, 1)">Objets</button>
                <button id="btn-filtre-appartements" class="basics-style-btn" onclick="recupByCategory(this, 2)">Appartements</button>
                <button id="btn-filtre-h&r" class="basics-style-btn" onclick="recupByCategory(this, 3)">Hôtels et restaurants</button>
             </div>
+
             <div class="gallery">
                <figure>
                   <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina" />
@@ -130,6 +144,9 @@
                </figure>
             </div>
          </section>
+
+         <!-- SECTION CONTACT FORMULAIRE  -->
+
          <section id="contact">
             <h2>Contact</h2>
             <p>Vous avez un projet ? Discutons-en !</p>
