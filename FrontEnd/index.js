@@ -1,10 +1,11 @@
+/***  PARTIE FILTRES ***/
 function recupByCategory(btnSelect, categoryId) {
    fetch("http://localhost:5678/api/works")
       .then(function (response) {
          return response.json();
       })
       .then(function (data) {
-         selectedBtn(btnSelect);
+         selectedBtnFilters(btnSelect);
          for (let i = 0; i < data.length; i++) {
             let element = data[i];
             const figure = document.querySelectorAll(".gallery figure");
@@ -17,12 +18,14 @@ function recupByCategory(btnSelect, categoryId) {
       });
 }
 
-function selectedBtn(btnSelected) {
+function selectedBtnFilters(btnSelected) {
    let current = document.getElementsByClassName("active-btn");
    current[0].classList.remove("active-btn");
    btnSelected.classList.add("active-btn");
 }
+/***  PARTIE FILTRES ***/
 
+/*** PARTIE EDITION ***/
 const token = window.localStorage.getItem("token");
 if (token) {
    activeUser();
@@ -33,7 +36,7 @@ const secondModal = document.getElementById("second-modal");
 function activeUser() {
    loginToLogout();
    blackBanner();
-   modal();
+   firstModal();
    hiddenFilter();
    modifImageProfil();
    arrowBackModal();
@@ -68,7 +71,7 @@ function activeUser() {
       }
    }
 
-   function modal() {
+   function firstModal() {
       const modale = document.querySelector(".modale-modif");
       modale.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
       const modaleContainer = document.querySelector(".modale-content");
@@ -139,7 +142,9 @@ function activeUser() {
       });
    }
 }
+/*** PARTIE EDITION ***/
 
+/*** PARTIE MODALE FORMULAIRE ***/
 const btnValider = document.getElementById("send-new-projet");
 const titleNewForm = document.getElementById("title");
 const categorieForm = document.getElementById("category");
@@ -185,7 +190,6 @@ function isFormValid() {
    return isValid;
 }
 
-console.log(imageForm.value);
 function sendNewProject() {
    const imageForm = document.getElementById("imgNewProject");
 
@@ -205,3 +209,4 @@ function sendNewProject() {
       .then((response) => response.json())
       .then((json) => console.log(json));
 }
+/*** PARTIE MODALE FORMULAIRE ***/
