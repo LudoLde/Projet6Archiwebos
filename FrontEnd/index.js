@@ -71,51 +71,6 @@ function activeUser() {
       }
    }
 
-   function firstModal() {
-      const modale = document.querySelector(".modale-modif");
-      modale.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
-      const modaleContainer = document.querySelector(".modale-content");
-
-      fetch("http://localhost:5678/api/works")
-         .then(function (response) {
-            return response.json();
-         })
-         .then(function (data) {
-            const galleryModal = document.createElement("div");
-            galleryModal.classList.add("gallery-modal");
-            modaleContainer.appendChild(galleryModal);
-
-            for (let i = 0; i < data.length; i++) {
-               const element = data[i];
-               galleryModal.innerHTML +=
-                  "<figure><span class='fa icon-modal'>&#xf290</span>" +
-                  '<img class="image-modal" src=' +
-                  element.imageUrl +
-                  " alt=" +
-                  element.title +
-                  '/> <p class="para-modal">éditer</p></figure>';
-            }
-
-            const btnAddImage = document.querySelector(".add-image-modal");
-            btnAddImage.addEventListener("click", function () {
-               modaleContainer.style.display = "none";
-               secondModal.classList.remove("modal-display-none");
-
-               fetch("http://localhost:5678/api/categories")
-                  .then(function (response) {
-                     return response.json();
-                  })
-                  .then(function (data) {
-                     const selectCategory = document.getElementById("category");
-                     for (let i = 0; i < data.length; i++) {
-                        const element = data[i];
-                        selectCategory.options.add(new Option(element.name, element.id));
-                     }
-                  });
-            });
-         });
-   }
-
    function hiddenFilter() {
       const blocBtn = document.getElementById("bloc-btn");
       blocBtn.style.display = "none";
@@ -142,6 +97,53 @@ function activeUser() {
       });
    }
 }
+
+function firstModal() {
+   const modale = document.querySelector(".modale-modif");
+   modale.innerHTML = "<span class='fa'>&#xf044</span>" + "&nbsp;" + "&nbsp;" + "<p>modifier</p>";
+   const modaleContainer = document.querySelector(".modale-content");
+
+   fetch("http://localhost:5678/api/works")
+      .then(function (response) {
+         return response.json();
+      })
+      .then(function (data) {
+         const galleryModal = document.createElement("div");
+         galleryModal.classList.add("gallery-modal");
+         modaleContainer.appendChild(galleryModal);
+
+         for (let i = 0; i < data.length; i++) {
+            let element = data[i];
+            let idProject = element.id;
+            galleryModal.innerHTML +=
+               "<figure><span class='fa icon-modal' onclick='deleteProject(" +
+               idProject +
+               ")' >&#xf2ed</span>" +
+               '<img class="image-modal" src=' +
+               element.imageUrl +
+               " alt=" +
+               element.title +
+               '/> <p class="para-modal">éditer</p></figure>';
+         }
+         const btnAddImage = document.querySelector(".add-image-modal");
+         btnAddImage.addEventListener("click", function () {
+            modaleContainer.style.display = "none";
+            secondModal.classList.remove("modal-display-none");
+
+            fetch("http://localhost:5678/api/categories")
+               .then(function (response) {
+                  return response.json();
+               })
+               .then(function (data) {
+                  const selectCategory = document.getElementById("category");
+                  for (let i = 0; i < data.length; i++) {
+                     const element = data[i];
+                     selectCategory.options.add(new Option(element.name, element.id));
+                  }
+               });
+         });
+      });
+}
 /*** PARTIE EDITION ***/
 
 /*** PARTIE MODALE FORMULAIRE ***/
@@ -152,15 +154,12 @@ const imageSelected = document.getElementById("photo-projet");
 
 validationForm();
 
-btnValider.addEventListener("click", sendNewProject);
-
 function validationForm() {
    const imageUploaded = document.getElementById("img-uploaded");
 
    imageSelected.addEventListener("change", getImage, false);
 
    function getImage() {
-      console.log("images", this.files[0]);
       const imageToProcess = this.files[0];
 
       let newImage = new Image(imageToProcess.width, imageToProcess.height);
@@ -191,22 +190,36 @@ function isFormValid() {
 }
 
 function sendNewProject() {
-   const imageForm = document.getElementById("imgNewProject");
+   let formData = new FormData();
+   formData.append("image", imageSelected.files[0]);
+   formData.append("title", titleNewForm.value);
+   formData.append("category", parseInt(categorieForm.value));
 
    fetch("http://localhost:5678/api/works", {
       method: "POST",
-      body: {
-         image: "@" + imageSelected.files[0].name + ";type=" + imageSelected.files[0].type,
-         title: titleNewForm.value,
-         category: parseInt(categorieForm.value),
-      },
+      body: formData,
 
       headers: {
-         Accept: "application/json",
          Authorization: "Bearer " + token,
       },
    })
       .then((response) => response.json())
-      .then((json) => console.log(json));
+      .then((data) => console.log(data));
+}
+
+function deleteProject(idProject) {
+   fetch("http://localhost:5678/api/works/" + idProject, {
+      method: "DELETE",
+      headers: {
+         Accept: "*/*",
+         Authorization: "Bearer " + token,
+      },
+   }).then((response) => {
+      if (response.status === 204) {
+         console.log("supprimé");
+      }
+      console.log(response);
+      firstModal();
+   });
 }
 /*** PARTIE MODALE FORMULAIRE ***/
