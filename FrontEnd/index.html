@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="./assets/style.css" />
       <script src="https://kit.fontawesome.com/e8b029d396.js" crossorigin="anonymous"></script>
    </head>
-   <body>
+   <body onload="galleryActualisee()">
       <!--   HEADER   -->
 
       <div class="black-band"></div>
@@ -59,6 +59,7 @@
             <div id="btn-modale" class="modale">
                <div class="modale-content">
                   <h2>Galerie photo</h2>
+                  <div id="gallery-modal" class="gallery-modal"></div>
                   <a href="#" class="modale-close">&times;</a>
                   <button class="add-image-modal">Ajouter une photo</button>
                   <p class="delete-galerie">Supprimer la galerie</p>
@@ -67,7 +68,7 @@
                <!-- SECONDE MODALE  -->
                <div id="second-modal" class="modale-content modal-display-none">
                   <a href="#" class="modale-close">&times;</a>
-                  <i class="fa fa-light fa-arrow-left"></i>
+                  <i id="arrow-back" class="fa fa-light fa-arrow-left" onclick="backToFirstModal()"></i>
                   <h2>Ajout photo</h2>
 
                   <form id="my-form">
@@ -97,52 +98,8 @@
                <button id="btn-filtre-h&r" class="basics-style-btn" onclick="recupByCategory(this, 3)">Hôtels et restaurants</button>
             </div>
 
-            <div class="gallery">
-               <figure>
-                  <img src="assets/images/abajour-tahina.png" alt="Abajour Tahina" />
-                  <figcaption>Abat-jour Tahina</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V" />
-                  <figcaption>Appartement Paris V</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres" />
-                  <figcaption>Restaurant Sushisen - Londres</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis" />
-                  <figcaption>Villa “La Balisière” - Port Louis</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis" />
-                  <figcaption>Structures Thermopolis</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X" />
-                  <figcaption>Appartement Paris X</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis" />
-                  <figcaption>Pavillon “Le coteau” - Cassis</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba" />
-                  <figcaption>Villa Ferneze - Isola d’Elba</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII" />
-                  <figcaption>Appartement Paris XVIII</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris" />
-                  <figcaption>Bar “Lullaby” - Paris</figcaption>
-               </figure>
-               <figure>
-                  <img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi" />
-                  <figcaption>Hotel First Arte - New Delhi</figcaption>
-               </figure>
-            </div>
+            <!-- GALLERIE  -->
+            <div id="gallery" class="gallery"></div>
          </section>
 
          <!-- SECTION CONTACT FORMULAIRE  -->
