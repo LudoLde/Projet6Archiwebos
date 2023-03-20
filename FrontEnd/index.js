@@ -1,4 +1,22 @@
 /***  PARTIE FILTRES ***/
+
+let btnTous = document.getElementById("btn-filtre-tous");
+let btnObjets = document.getElementById("btn-filtre-objets");
+let btnAppartements = document.getElementById("btn-filtre-appartements");
+let btnHEtR = document.getElementById("btn-filtre-h&r");
+
+btnTous.addEventListener("click", function () {
+   recupByCategory(btnTous, -1);
+});
+btnObjets.addEventListener("click", function () {
+   recupByCategory(btnObjets, 1);
+});
+btnAppartements.addEventListener("click", function () {
+   recupByCategory(btnAppartements, 2);
+});
+btnHEtR.addEventListener("click", function () {
+   recupByCategory(btnHEtR, 3);
+});
 function recupByCategory(btnSelect, categoryId) {
    fetch("http://localhost:5678/api/works")
       .then(function (response) {
