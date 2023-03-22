@@ -11,7 +11,7 @@
       <link rel="stylesheet" href="./assets/style.css" />
       <script src="https://kit.fontawesome.com/e8b029d396.js" crossorigin="anonymous"></script>
    </head>
-   <body onload="galleryActualisee()">
+   <body>
       <!--   HEADER   -->
 
       <div class="black-band"></div>
@@ -68,7 +68,7 @@
                <!-- SECONDE MODALE  -->
                <div id="second-modal" class="modale-content modal-display-none">
                   <a href="#" class="modale-close">&times;</a>
-                  <i id="arrow-back" class="fa fa-light fa-arrow-left" onclick="backToFirstModal()"></i>
+                  <i id="arrow-back" class="fa fa-light fa-arrow-left"></i>
                   <h2>Ajout photo</h2>
 
                   <form id="my-form">
@@ -79,14 +79,15 @@
                         <p class="para-form">jpg, png : 4mo max</p></label
                      >
                      <label for="title">Titre</label>
-                     <input type="text" id="title" class="donnees-form" name="title" onchange="styleChangeBtnValider()" />
+                     <input type="text" id="title" class="donnees-form" name="title" />
+                     <p id="titre-obligatoire" class="titre-obligatoire">Veuillez remplir ce champ !</p>
                      <label for="category">Catégorie</label>
-                     <select id="category" class="donnees-form" name="category" onchange="styleChangeBtnValider()">
+                     <select id="category" class="donnees-form" name="category">
                         <option value="-1"></option>
                      </select>
                   </form>
 
-                  <button id="send-new-projet" onclick="sendNewProject()">Valider</button>
+                  <button id="send-new-projet">Valider</button>
                </div>
             </div>
 

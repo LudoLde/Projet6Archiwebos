@@ -109,6 +109,7 @@ function activeUser() {
 /*** PARTIE EDITION ***/
 
 /*** PARTIE MODALE FORMULAIRE ***/
+const imageObligatoire = document.getElementById("photo-projet");
 const btnValider = document.getElementById("send-new-projet");
 const arrowBack = document.getElementById("arrow-back");
 const titleNewForm = document.getElementById("title");
@@ -116,7 +117,29 @@ const categorieForm = document.getElementById("category");
 const imageSelected = document.getElementById("photo-projet");
 const galleryProjects = document.getElementById("gallery");
 
+arrowBack.addEventListener("click", () => {
+   backToFirstModal();
+});
+
+imageObligatoire.addEventListener("change", function (e) {
+   if (e.target.files[0]) {
+      styleChangeBtnValider();
+   }
+});
+
+titleNewForm.addEventListener("change", () => {
+   styleChangeBtnValider();
+   btnValider.addEventListener("click", () => {
+      sendNewProject();
+   });
+});
+
+categorieForm.addEventListener("change", () => {
+   styleChangeBtnValider();
+});
+
 validationForm();
+galleryActualisee();
 
 function backToFirstModal() {
    const modaleContainer = document.querySelector(".modale-content");
@@ -186,19 +209,30 @@ function validationForm() {
 }
 
 function styleChangeBtnValider() {
+   const titleObligate = document.getElementById("titre-obligatoire");
+
    if (isFormValid()) {
       btnValider.style.background = "#1d6154";
       btnValider.style.cursor = "pointer";
+      /* btnValider.addEventListener("click", () => {
+         sendNewProject();
+      });*/
    } else {
       btnValider.style.background = "#a7a7a7";
       btnValider.style.removeProperty("cursor");
+      btnValider.addEventListener("click", () => {
+         titleObligate.style.display = "block";
+      });
    }
 }
 
 function isFormValid() {
    let isValid = true;
 
-   if (titleNewForm.value == "" || categorieForm.value == -1) {
+   if (titleNewForm.value == "" && categorieForm.value == -1) {
+      isValid = false;
+   }
+   if (titleNewForm.value != "" && categorieForm.value == -1) {
       isValid = false;
    }
 
@@ -299,3 +333,10 @@ function galleryActualisee() {
 }
 
 /*** PARTIE MODALE FORMULAIRE ***/
+fetch("http://localhost:5678/api/works")
+   .then(function (response) {
+      return response.json();
+   })
+   .then(function (data) {
+      console.log(data);
+   });
