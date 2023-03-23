@@ -523,18 +523,17 @@ footer nav ul {
    box-shadow: 0px 4px 14px rgb(0 0 0 / 9%);
    height: 37px;
 }
-.titre-obligatoire {
+.message-erreur {
    color: red;
    padding-top: 3px;
-   display: none;
 }
 
 #category {
    border: none;
    box-shadow: 0px 4px 14px rgb(0 0 0 / 9%);
    height: 37px;
-   margin-bottom: 53px;
 }
+
 #second-modal form label {
    margin: 18px 0px 8px 0px;
 }

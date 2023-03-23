@@ -41,8 +41,6 @@ function selectedBtnFilters(btnSelected) {
    current[0].classList.remove("active-btn");
    btnSelected.classList.add("active-btn");
 }
-/***  PARTIE FILTRES ***/
-
 /*** PARTIE EDITION ***/
 const token = window.localStorage.getItem("token");
 if (token) {
@@ -106,8 +104,6 @@ function activeUser() {
    }
 }
 
-/*** PARTIE EDITION ***/
-
 /*** PARTIE MODALE FORMULAIRE ***/
 const imageObligatoire = document.getElementById("photo-projet");
 const btnValider = document.getElementById("send-new-projet");
@@ -116,22 +112,42 @@ const titleNewForm = document.getElementById("title");
 const categorieForm = document.getElementById("category");
 const imageSelected = document.getElementById("photo-projet");
 const galleryProjects = document.getElementById("gallery");
+const messageTitreOligatoire = document.getElementById("titre-obligatoire");
+const messageImageOligatoire = document.getElementById("image-obligatoire");
+const messageCategorieOligatoire = document.getElementById("categorie-obligatoire");
+
+btnValider.addEventListener("click", () => {
+   if (isImageValid() && isCategorieValid() && isTitleValid()) {
+      sendNewProject();
+      messageImageOligatoire.hidden = true;
+      messageCategorieOligatoire.hidden = true;
+      messageTitreOligatoire.hidden = true;
+   } else {
+      if (!isImageValid()) {
+         console.log(messageTitreOligatoire);
+         messageImageOligatoire.hidden = false;
+      }
+      if (!isCategorieValid()) {
+         console.log(messageTitreOligatoire);
+         messageCategorieOligatoire.hidden = false;
+      }
+      if (!isTitleValid()) {
+         console.log(messageTitreOligatoire);
+         messageTitreOligatoire.hidden = false;
+      }
+   }
+});
 
 arrowBack.addEventListener("click", () => {
    backToFirstModal();
 });
 
-imageObligatoire.addEventListener("change", function (e) {
-   if (e.target.files[0]) {
-      styleChangeBtnValider();
-   }
+imageObligatoire.addEventListener("change", () => {
+   styleChangeBtnValider();
 });
 
-titleNewForm.addEventListener("change", () => {
+titleNewForm.addEventListener("input", () => {
    styleChangeBtnValider();
-   btnValider.addEventListener("click", () => {
-      sendNewProject();
-   });
 });
 
 categorieForm.addEventListener("change", () => {
@@ -209,33 +225,46 @@ function validationForm() {
 }
 
 function styleChangeBtnValider() {
-   const titleObligate = document.getElementById("titre-obligatoire");
-
-   if (isFormValid()) {
+   if (isImageValid()) {
+      messageImageOligatoire.hidden = true;
+   }
+   if (isCategorieValid()) {
+      messageCategorieOligatoire.hidden = true;
+   }
+   if (isTitleValid()) {
+      messageTitreOligatoire.hidden = true;
+   }
+   if (isImageValid() && isCategorieValid() && isTitleValid()) {
       btnValider.style.background = "#1d6154";
       btnValider.style.cursor = "pointer";
-      /* btnValider.addEventListener("click", () => {
-         sendNewProject();
-      });*/
    } else {
       btnValider.style.background = "#a7a7a7";
       btnValider.style.removeProperty("cursor");
-      btnValider.addEventListener("click", () => {
-         titleObligate.style.display = "block";
-      });
    }
 }
 
-function isFormValid() {
+function isImageValid() {
    let isValid = true;
 
-   if (titleNewForm.value == "" && categorieForm.value == -1) {
+   if (imageSelected.files.length == 0) {
       isValid = false;
    }
-   if (titleNewForm.value != "" && categorieForm.value == -1) {
-      isValid = false;
-   }
+   return isValid;
+}
+function isTitleValid() {
+   let isValid = true;
 
+   if (titleNewForm.value == "") {
+      isValid = false;
+   }
+   return isValid;
+}
+function isCategorieValid() {
+   let isValid = true;
+
+   if (categorieForm.value == -1) {
+      isValid = false;
+   }
    return isValid;
 }
 
@@ -261,7 +290,7 @@ function sendNewProject() {
          galleryProjects.innerHTML = "";
          galleryActualisee();
          galleryModalActualisee();
-         console.log(data);
+         styleChangeBtnValider();
       });
 }
 
@@ -333,10 +362,3 @@ function galleryActualisee() {
 }
 
 /*** PARTIE MODALE FORMULAIRE ***/
-fetch("http://localhost:5678/api/works")
-   .then(function (response) {
-      return response.json();
-   })
-   .then(function (data) {
-      console.log(data);
-   });

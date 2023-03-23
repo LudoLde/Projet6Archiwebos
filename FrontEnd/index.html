@@ -78,13 +78,15 @@
                         <div id="img-uploaded"></div>
                         <p class="para-form">jpg, png : 4mo max</p></label
                      >
+                     <p id="image-obligatoire" class="message-erreur" hidden>Veuillez remplir ce champ !</p>
                      <label for="title">Titre</label>
                      <input type="text" id="title" class="donnees-form" name="title" />
-                     <p id="titre-obligatoire" class="titre-obligatoire">Veuillez remplir ce champ !</p>
+                     <p id="titre-obligatoire" class="message-erreur" hidden>Veuillez remplir ce champ !</p>
                      <label for="category">Catégorie</label>
                      <select id="category" class="donnees-form" name="category">
                         <option value="-1"></option>
                      </select>
+                     <p id="categorie-obligatoire" class="message-erreur" hidden>Veuillez remplir ce champ !</p>
                   </form>
 
                   <button id="send-new-projet">Valider</button>
